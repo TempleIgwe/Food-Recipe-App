@@ -5,6 +5,9 @@ const recipeCloseBtn = document.getElementById("recipe-close-btn");
 
 searchBtn.addEventListener("click", getMealList);
 mealList.addEventListener("click", getMealRecipe);
+recipeCloseBtn.addEventListener("click", () => {
+  mealDetailsContent.parentElement.classList.remove("showRecipe");
+});
 
 function getMealList() {
   let searchInputTxt = document.getElementById("search-input").value.trim();
@@ -56,4 +59,23 @@ function getMealRecipe(e) {
 function mealRecipeModal(meal) {
   console.log(meal);
   meal = meal[0];
+  let html = `
+    <h2 class="recipe-title">${meal.strMeal}</h2>
+    <p class="recipe-category">${meal.strCategory}</p>
+    <div class="recipe-instruct">
+      <h3>Instructions:</h3>
+      <p>${meal.strInstructions}</p>
+    </div>
+    <div class="recipe-meal-img">
+      <img
+        src="${meal.strMealThumb}"
+        alt=""
+      />
+    </div>
+    <div class="recipe-link">
+      <a href="${meal.strYoutube}" target="_blank">Watch Video</a>
+    </div>
+  `;
+  mealDetailsContent.innerHTML = html;
+  mealDetailsContent.parentElement.classList.add("showRecipe");
 }
